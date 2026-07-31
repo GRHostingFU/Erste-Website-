@@ -1,0 +1,530 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+/* ==========================================================================
+   DESIGNSYSTEM
+   --------------------------------------------------------------------------
+   Tailwind CSS v4 ist CSS-first: Jedes Token in `@theme` ist gleichzeitig
+   eine echte CSS-Custom-Property *und* erzeugt passende Utility-Klassen.
+
+   Aufbau dieser Datei:
+     1. Primitive Tokens   – Farbpaletten, Typografie, Radien, Schatten, Motion
+     2. Semantische Tokens – rollenbasierte Aliase (background, foreground, …)
+     3. Themes             – Wertebelegung für Light & Dark
+     4. Base Layer         – Reset-Ergänzungen und globale Typografie
+     5. Utilities          – wiederverwendbare Design-Patterns
+   ========================================================================== */
+
+/* ==========================================================================
+   1. PRIMITIVE TOKENS
+   ========================================================================== */
+
+@theme {
+  /* ---------------------------------------------------------------- Fonts */
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-display: var(--font-sans);
+
+  /* --------------------------------------------------------- Markenfarben */
+  /* Türkis – Primärfarbe: Kompetenz, Klarheit, medizinische Seriosität. */
+  --color-brand-50: #effbfa;
+  --color-brand-100: #d5f4f1;
+  --color-brand-200: #ace8e3;
+  --color-brand-300: #77d5d0;
+  --color-brand-400: #41bcb8;
+  --color-brand-500: #1e9f9c;
+  --color-brand-600: #12817f;
+  --color-brand-700: #126767;
+  --color-brand-800: #135353;
+  --color-brand-900: #144545;
+  --color-brand-950: #062a2b;
+
+  /* Hellblau – Sekundärfarbe: Ruhe, Vertrauen, Weite. */
+  --color-azure-50: #f1f7fc;
+  --color-azure-100: #e0eef8;
+  --color-azure-200: #c6dff2;
+  --color-azure-300: #9bc8e7;
+  --color-azure-400: #6aaad7;
+  --color-azure-500: #478dc3;
+  --color-azure-600: #3572a6;
+  --color-azure-700: #2c5c87;
+  --color-azure-800: #294e70;
+  --color-azure-900: #27435e;
+  --color-azure-950: #1a2b3e;
+
+  /* Salbeigrün – Akzentfarbe: Fürsorge, Natürlichkeit, Wärme. */
+  --color-sage-50: #f5f8f3;
+  --color-sage-100: #e8efe4;
+  --color-sage-200: #d2e0cb;
+  --color-sage-300: #afc7a5;
+  --color-sage-400: #87a87b;
+  --color-sage-500: #678a5b;
+  --color-sage-600: #4f6e46;
+  --color-sage-700: #3f5739;
+  --color-sage-800: #354732;
+  --color-sage-900: #2d3b2c;
+  --color-sage-950: #161f15;
+
+  /* Dunkelgrau – Neutralpalette mit leicht kühlem Unterton. */
+  --color-ink-50: #f7f8f8;
+  --color-ink-100: #eef0f1;
+  --color-ink-200: #dfe2e4;
+  --color-ink-300: #c7ccd0;
+  --color-ink-400: #a3abb1;
+  --color-ink-500: #7f888f;
+  --color-ink-600: #656e75;
+  --color-ink-700: #525a60;
+  --color-ink-800: #464c51;
+  --color-ink-900: #3d4246;
+  --color-ink-950: #212528;
+
+  /* ------------------------------------------------------- Typografie */
+  /* Fluide Display-Größen: skalieren stufenlos zwischen 360px und 1536px.
+     Kein Sprung an Breakpoints, dafür präzise Tracking-Korrektur je Größe. */
+  --text-display-sm: clamp(1.875rem, 1.5rem + 1.6vw, 2.5rem);
+  --text-display-sm--line-height: 1.15;
+  --text-display-sm--letter-spacing: -0.02em;
+  --text-display-sm--font-weight: 600;
+
+  --text-display-md: clamp(2.25rem, 1.7rem + 2.4vw, 3.25rem);
+  --text-display-md--line-height: 1.1;
+  --text-display-md--letter-spacing: -0.025em;
+  --text-display-md--font-weight: 600;
+
+  --text-display-lg: clamp(2.75rem, 1.9rem + 3.6vw, 4.25rem);
+  --text-display-lg--line-height: 1.07;
+  --text-display-lg--letter-spacing: -0.03em;
+  --text-display-lg--font-weight: 600;
+
+  --text-display-xl: clamp(3.25rem, 2rem + 5.2vw, 5.5rem);
+  --text-display-xl--line-height: 1.04;
+  --text-display-xl--letter-spacing: -0.035em;
+  --text-display-xl--font-weight: 600;
+
+  --text-display-2xl: clamp(3.75rem, 2.2rem + 6.6vw, 7rem);
+  --text-display-2xl--line-height: 1;
+  --text-display-2xl--letter-spacing: -0.04em;
+  --text-display-2xl--font-weight: 600;
+
+  /* Fließtext für Intros und Lead-Absätze. */
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --text-lead--line-height: 1.7;
+
+  --tracking-tightest: -0.04em;
+  --tracking-eyebrow: 0.14em;
+
+  /* --------------------------------------------------- Layout & Abstände */
+  --container-narrow: 48rem;
+  --container-content: 64rem;
+  --container-wide: 80rem;
+  --container-page: 90rem;
+
+  /* Fluide Sektionsabstände – tragen den großzügigen Weißraum. */
+  --spacing-section-sm: clamp(3rem, 2rem + 4vw, 4.5rem);
+  --spacing-section-md: clamp(4rem, 2.5rem + 6vw, 7rem);
+  --spacing-section-lg: clamp(5rem, 3rem + 8vw, 9rem);
+  --spacing-section-xl: clamp(6rem, 3.5rem + 10vw, 11rem);
+  --spacing-gutter: clamp(1.25rem, 0.75rem + 2.2vw, 2.5rem);
+  --spacing-header: 4.5rem;
+
+  /* ------------------------------------------------------------- Radien */
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
+  --radius-6xl: 3rem;
+
+  /* ----------------------------------------------------------- Schatten */
+  /* Mehrschichtig und sehr transparent – wirkt wie diffuses Tageslicht
+     statt wie ein harter Schlagschatten. */
+  --shadow-xs: 0 1px 2px 0 rgb(33 37 40 / 0.04);
+  --shadow-sm:
+    0 1px 2px 0 rgb(33 37 40 / 0.04), 0 2px 6px -1px rgb(33 37 40 / 0.04);
+  --shadow-md:
+    0 2px 4px -1px rgb(33 37 40 / 0.04), 0 6px 16px -2px rgb(33 37 40 / 0.06);
+  --shadow-lg:
+    0 4px 8px -2px rgb(33 37 40 / 0.04), 0 12px 28px -4px rgb(33 37 40 / 0.08);
+  --shadow-xl:
+    0 8px 16px -4px rgb(33 37 40 / 0.05), 0 24px 48px -8px rgb(33 37 40 / 0.1);
+  --shadow-2xl:
+    0 16px 32px -8px rgb(33 37 40 / 0.06),
+    0 40px 80px -16px rgb(33 37 40 / 0.14);
+  --shadow-glow-brand: 0 12px 32px -12px rgb(30 159 156 / 0.55);
+  --shadow-glow-sage: 0 12px 32px -12px rgb(103 138 91 / 0.45);
+
+  /* ------------------------------------------------------------- Motion */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --animate-fade-in: fade-in 0.6s var(--ease-out-quint) both;
+  --animate-fade-in-up: fade-in-up 0.7s var(--ease-out-quint) both;
+  --animate-scale-in: scale-in 0.5s var(--ease-out-quint) both;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-float: float 9s var(--ease-soft) infinite;
+  --animate-aurora: aurora 22s var(--ease-soft) infinite;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 1.25rem, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes shimmer {
+    from {
+      background-position: -200% 0;
+    }
+    to {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -1.5rem, 0);
+    }
+  }
+
+  @keyframes aurora {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.55;
+    }
+    50% {
+      transform: translate3d(3%, -4%, 0) scale(1.12);
+      opacity: 0.8;
+    }
+  }
+}
+
+/* ==========================================================================
+   2. SEMANTISCHE TOKENS
+   --------------------------------------------------------------------------
+   `@theme inline` erzeugt Utilities (`bg-surface`, `text-foreground-muted`, …),
+   deren Werte aus den Theme-Variablen unten stammen. Dadurch reagieren alle
+   Komponenten automatisch auf den Theme-Wechsel.
+   ========================================================================== */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-elevated: var(--surface-elevated);
+
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-foreground-inverted: var(--foreground-inverted);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-highlight: var(--highlight);
+  --color-highlight-soft: var(--highlight-soft);
+
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+}
+
+/* ==========================================================================
+   3. THEMES
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  --background: #ffffff;
+  --surface: #ffffff;
+  --surface-muted: #f6f9f9;
+  --surface-elevated: #ffffff;
+
+  --foreground: var(--color-ink-950);
+  --foreground-muted: var(--color-ink-700);
+  --foreground-subtle: var(--color-ink-500);
+  --foreground-inverted: #ffffff;
+
+  --border: #e6eaeb;
+  --border-strong: #d2d8da;
+  --ring: var(--color-brand-500);
+
+  --primary: var(--color-brand-500);
+  --primary-hover: var(--color-brand-600);
+  --primary-soft: var(--color-brand-50);
+  --primary-foreground: #ffffff;
+
+  --accent: var(--color-sage-600);
+  --accent-soft: var(--color-sage-50);
+  --accent-foreground: #ffffff;
+
+  --highlight: var(--color-azure-500);
+  --highlight-soft: var(--color-azure-50);
+
+  /* Fehlerzustände in Formularen – kontraststark auf hellem Grund. */
+  --danger: #c62828;
+  --danger-soft: #fdecec;
+
+  --glass: rgb(255 255 255 / 0.72);
+  --glass-border: rgb(255 255 255 / 0.6);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: #0e1214;
+  --surface: #151a1d;
+  --surface-muted: #1a2023;
+  --surface-elevated: #1f262a;
+
+  --foreground: #edf1f2;
+  --foreground-muted: #aab3b8;
+  --foreground-subtle: #7f888f;
+  --foreground-inverted: var(--color-ink-950);
+
+  --border: #262e32;
+  --border-strong: #353f44;
+  --ring: var(--color-brand-400);
+
+  --primary: var(--color-brand-400);
+  --primary-hover: var(--color-brand-300);
+  --primary-soft: rgb(30 159 156 / 0.14);
+  --primary-foreground: var(--color-brand-950);
+
+  --accent: var(--color-sage-400);
+  --accent-soft: rgb(103 138 91 / 0.16);
+  --accent-foreground: var(--color-sage-950);
+
+  --highlight: var(--color-azure-400);
+  --highlight-soft: rgb(71 141 195 / 0.16);
+
+  --danger: #ff8a80;
+  --danger-soft: rgb(198 40 40 / 0.18);
+
+  --glass: rgb(21 26 29 / 0.72);
+  --glass-border: rgb(255 255 255 / 0.08);
+}
+
+/* ==========================================================================
+   4. BASE LAYER
+   ========================================================================== */
+
+@layer base {
+  /* Tailwind v4 setzt Rahmen standardmäßig auf `currentColor`.
+     Wir binden sie an das Border-Token zurück. */
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
+  }
+
+  * {
+    min-width: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+    /* Sticky Header darf Sprungziele nicht verdecken. */
+    scroll-padding-top: calc(var(--spacing-header) + 1.5rem);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    /* Inter Character Variants: geschlossenere Formen, ruhigeres Schriftbild. */
+    font-feature-settings:
+      "cv02" 1,
+      "cv03" 1,
+      "cv04" 1,
+      "cv11" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Sichtbarer, konsistenter Fokus – nie entfernen, nur gestalten. */
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  ::selection {
+    background-color: var(--color-brand-200);
+    color: var(--color-brand-950);
+  }
+
+  .dark ::selection {
+    background-color: var(--color-brand-800);
+    color: var(--color-brand-50);
+  }
+
+  /* Medien verhalten sich standardmäßig responsiv. */
+  img,
+  svg,
+  video,
+  canvas,
+  picture {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Dezente Scrollbar, die das Farbschema aufgreift. */
+  @supports (scrollbar-width: thin) {
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-ink-300) transparent;
+    }
+
+    .dark html {
+      scrollbar-color: var(--color-ink-700) transparent;
+    }
+  }
+
+  /* Barrierefreiheit: Systemeinstellung respektieren. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   5. UTILITIES
+   ========================================================================== */
+
+/* Verlaufstext für Headline-Akzente. */
+@utility text-gradient-brand {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-brand-600) 0%,
+    var(--color-brand-400) 45%,
+    var(--color-azure-500) 100%
+  );
+  /* Lightning CSS ergänzt die nötigen Hersteller-Präfixe anhand der
+     Browser-Targets – manuelle `-webkit-`-Zeilen würden die Standard-
+     Deklaration beim Minifizieren verdrängen. */
+  background-clip: text;
+  color: transparent;
+  /* Verhindert abgeschnittene Unterlängen bei großem Tracking. */
+  padding-bottom: 0.08em;
+}
+
+/* Glassmorphism-Fläche: nur dort einsetzen, wo etwas darunter liegt. */
+@utility glass-panel {
+  background-color: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* Weicher, radialer Markenschein für Hero- und Section-Hintergründe. */
+@utility bg-radial-brand {
+  background-image:
+    radial-gradient(
+      60% 60% at 15% 0%,
+      var(--color-brand-100) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      50% 50% at 90% 10%,
+      var(--color-azure-100) 0%,
+      transparent 65%
+    );
+}
+
+/* Feines Raster als Tiefenebene hinter Inhalten. */
+@utility bg-grid-subtle {
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+}
+
+/* Einheitlicher Fokus-Ring für interaktive Komponenten. */
+@utility focus-ring {
+  outline: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Inhalt an den Rändern weich auslaufen lassen (z. B. Logo-Leisten). */
+@utility mask-fade-x {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
