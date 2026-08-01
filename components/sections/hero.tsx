@@ -14,7 +14,7 @@ import { siteConfig } from "@/lib/site.config";
 import { toTelHref } from "@/utils";
 
 const trust = [
-  { value: "3.000+", label: "Beratungen" },
+  { value: "750+", label: "Beratungen" },
   { value: "15+", label: "Jahre Erfahrung" },
   { value: "98 %", label: "Zufriedenheit" },
 ] as const;
